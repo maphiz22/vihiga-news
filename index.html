@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vihiga Times - Your Trusted Local News Source</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="vihiga.css">
+</head>
+
+<body>
+    <!-- Sticky Shrinking Header -->
+    <header id="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgNjAiPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iNjAiIGZpbGw9IiNmNWY1ZjUiLz48dGV4dCB4PSIxMDAiIHk9IjM1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiMwZDRlN2EiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5WSElJR0E8L3RleHQ+PHRleHQgeD0iMTAwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjZTk3ZTIyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5USU1FUzwvdGV4dD48L3N2Zz4="
+                    alt="Vihiga Times Logo">
+            </div>
+            <div class="weather">
+                <span class="weather-icon">☀️</span>
+                <span class="weather-temp">24°C</span>
+            </div>
+            <nav class="main-nav">
+                <button class="hamburger" aria-label="Menu">☰</button>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Business</a></li>
+                    <li><a href="#">Jobs</a></li>
+                    <li><a href="#">Classifieds</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Live Counter -->
+    <div class="live-counter">
+        <span class="live-dot"></span>
+        <span class="viewer-count">1,247</span> viewers reading now
+    </div>
+
+    <!-- Hero Auto-Slider -->
+    <section class="hero-slider">
+        <div class="slider-container">
+            <div class="slider-track">
+                <div class="slide active" data-id="1">
+                    <img src="pexels-cottonbro-3662630.jpg" alt="Breaking News">
+                    <div class="slide-content">
+                        <span class="breaking-badge">BREAKING</span>
+                        <h2>County Assembly Passes New Education Bill</h2>
+                        <p>New legislation aims to improve school infrastructure across Vihiga County with a budget of
+                            KSh 250 million.</p>
+                    </div>
+                </div>
+                <div class="slide" data-id="2">
+                    <img src="pexels-didsss-2675061.jpg" alt="Community News">
+                    <div class="slide-content">
+                        <h2>Local Farmers Adopt New Techniques</h2>
+                        <p>Agricultural extension services helping boost yields in the region by over 30% this season.
+                        </p>
+                    </div>
+                </div>
+                <div class="slide" data-id="3">
+                    <img src="pexels-kseniachernaya-8535234.jpg" alt="Health News">
+                    <div class="slide-content">
+                        <span class="breaking-badge">URGENT</span>
+                        <h2>New Clinic Opens in Mbale</h2>
+                        <p>Residents celebrate improved access to healthcare services with 24/7 emergency care now
+                            available.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="prev-slide">❮</button>
+                <div class="slide-dots">
+                    <div class="dot active" data-slide="0"></div>
+                    <div class="dot" data-slide="1"></div>
+                    <div class="dot" data-slide="2"></div>
+                </div>
+                <button class="next-slide">❯</button>
+            </div>
+        </div>
+    </section>
+    <!-- Modal System -->
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal" id="modal">
+        <button class="close-modal">✖</button>
+        <div class="modal-content" id="modal-content">
+            <!-- Content loaded dynamically -->
+        </div>
+    </div>
+
+ 
+
+    <script>
+     // DOM Elements
+const header = document.getElementById('main-header');
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+const sliderTrack = document.querySelector('.slider-track');
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+const prevBtn = document.querySelector('.prev-slide');
+const nextBtn = document.querySelector('.next-slide');
+const modalOverlay = document.getElementById('modal-overlay');
+const modal = document.getElementById('modal');
+const closeModal = document.querySelector('.close-modal');
+const modalContent = document.getElementById('modal-content');
+const currentTime = document.getElementById('current-time');
+const clickableCards = document.querySelectorAll('.trending-card, .business-card, .job-card, .slide');
+
+// Variables
+let currentSlide = 0;
+let slideInterval;
+const slideCount = slides.length;
+
+// Initialize
+function init() {
+    // Set up header shrink on scroll
+    if (header) window.addEventListener('scroll', handleScroll);
+
+    // Set up mobile menu toggle
+    if (hamburger && navLinks) hamburger.addEventListener('click', toggleMenu);
+
+    // Set up slider controls
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+
+    // Set up slide dots
+    if (dots.length > 0) {
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                goToSlide(parseInt(dot.dataset.slide));
+            });
+        });
+    }
+
+    // Set up modal
+    if (modalOverlay) modalOverlay.addEventListener('click', closeModalFunc);
+    if (closeModal) closeModal.addEventListener('click', closeModalFunc);
+
+    // Set up clickable cards
+    if (clickableCards.length > 0) {
+        clickableCards.forEach(card => {
+            card.addEventListener('click', () => openModal(card.dataset.id));
+        });
+    }
+
+    // Start auto-slide
+    if (slides.length > 0) startAutoSlide();
+
+    // Update clock
+    updateClock();
+    setInterval(updateClock, 1000);
+}
+
+// Clock function
+function updateClock() {
+    if (currentTime) {
+        const now = new Date();
+        currentTime.textContent = now.toLocaleTimeString();
+    }
+}
+
+// Header shrink effect
+function handleScroll() {
+    if (header) {
+        if (window.scrollY > 50) {
+            header.classList.add('shrink');
+        } else {
+            header.classList.remove('shrink');
+        }
+    }
+}
+
+// Mobile menu toggle
+function toggleMenu() {
+    if (navLinks && hamburger) {
+        navLinks.classList.toggle('active');
+        hamburger.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+    }
+}
+
+// Slider functions
+function updateSlidePosition() {
+    if (sliderTrack) {
+        sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+        updateDots();
+    }
+}
+
+function updateDots() {
+    if (dots.length > 0) {
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+    }
+}
+
+function goToSlide(slideIndex) {
+    currentSlide = slideIndex;
+    updateSlidePosition();
+    resetAutoSlide();
+}
+
+function nextSlide() {
+    if (slides.length > 0) {
+        currentSlide = (currentSlide + 1) % slideCount;
+        updateSlidePosition();
+        resetAutoSlide();
+    }
+}
+
+function prevSlide() {
+    if (slides.length > 0) {
+        currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+        updateSlidePosition();
+        resetAutoSlide();
+    }
+}
+
+function startAutoSlide() {
+    if (slides.length > 0) {
+        slideInterval = setInterval(nextSlide, 5000);
+    }
+}
+
+function resetAutoSlide() {
+    clearInterval(slideInterval);
+    startAutoSlide();
+}
+
+// Modal functions
+function openModal(contentId) {
+    if (!modalContent || !modalOverlay || !modal) return;
+    
+    // In a real implementation, this would fetch content based on ID
+    // For demo, we'll use mock content
+    let content = '';
+
+    if (contentId === '1') {
+        content = `
+            <h2>County Assembly Passes New Education Bill</h2>
+            <img src="pexels-kseniachernaya-8535234.jpg" alt="News Image">
+            <p>The Vihiga County Assembly yesterday passed the landmark Education Improvement Bill 2023, which allocates KSh 250 million for school infrastructure upgrades across the county.</p>
+            <p>The bill, which was unanimously supported by all members, focuses on:</p>
+            <ul>
+                <li>Construction of 20 new classrooms in underserved areas</li>
+                <li>Renovation of 15 existing school buildings</li>
+                <li>Provision of clean water to 30 schools</li>
+                <li>Installation of solar power in 25 remote schools</li>
+            </ul>
+            <p>Governor Ottichilo is expected to sign the bill into law next week, with implementation beginning in the new financial year.</p>
+            <p class="timestamp">Posted: Today at 10:45 AM | Author: John Mwangi</p>
+        `;
+    } else if (contentId === '2') {
+        content = `
+            <h2>Vihiga Hardware</h2>
+            <img src="pexels-kseniachernaya-8535633.jpg" alt="Business Image">
+            <p class="category">Building Materials Supplier</p>
+            <p>Established in 1995, Vihiga Hardware has grown to become the leading supplier of quality construction materials in the county.</p>
+            <p><strong>Services:</strong></p>
+            <ul>
+                <li>Construction materials retail and wholesale</li>
+                <li>Professional advice on building projects</li>
+                <li>Delivery services across the county</li>
+            </ul>
+            <p><strong>Contact:</strong></p>
+            <p>📍 Luanda Town, Along Main Road<br>
+            📞 0722 123 456<br>
+            🕒 Mon-Sat: 8:00 AM - 6:00 PM</p>
+        `;
+    } else {
+        content = `
+            <h2>Primary School Teachers Needed</h2>
+            <img src="bg-1.png" alt="Job Image">
+            <p class="company">Vihiga County Government</p>
+            <p>The County Government of Vihiga is recruiting 50 primary school teachers to serve in various public schools across the county.</p>
+            <p><strong>Requirements:</strong></p>
+            <ul>
+                <li>P1 Certificate from a recognized institution</li>
+                <li>Registered with TSC</li>
+                <li>Minimum 2 years teaching experience</li>
+                <li>Good communication skills</li>
+            </ul>
+            <p><strong>Application Deadline:</strong> 15th June 2023</p>
+            <p><strong>How to Apply:</strong> Submit your application letter, CV and copies of certificates to the County Education Office, Mbale.</p>
+        `;
+    }
+
+    modalContent.innerHTML = content;
+    modalOverlay.classList.add('active');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModalFunc() {
+    if (modalOverlay && modal) {
+        modalOverlay.classList.remove('active');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Initialize the app
+document.addEventListener('DOMContentLoaded', init);
+
+// Live Counter Simulation
+const viewerCount = document.querySelector('.viewer-count');
+function updateViewerCount() {
+    if (!viewerCount) return;
+    
+    const currentCount = parseInt(viewerCount.textContent.replace(/,/g, ''));
+    const change = Math.floor(Math.random() * 41) - 20; // Random number between -20 and 20
+    let newCount = Math.max(1000, currentCount + change); // Don't go below 1000
+
+    // Format number with commas
+    newCount = newCount.toLocaleString();
+    viewerCount.textContent = newCount;
+
+    // Schedule next update
+    setTimeout(updateViewerCount, Math.random() * 2000 + 3000); // Between 3-5 seconds
+}
+
+// Start the counter updates
+if (viewerCount) {
+    setTimeout(updateViewerCount, 3000);
+}
+
+// Handle responsive AOS reinitialization
+function handleResize() {
+    if (typeof AOS !== 'undefined') {
+        if (window.innerWidth < 768) {
+            AOS.init({
+                disable: true
+            });
+        } else {
+            AOS.init({
+                disable: false
+            });
+        }
+    }
+}
+
+window.addEventListener('resize', () => {
+    setTimeout(handleResize, 200);
+});
+       </script>
+
+    <!-- Trending News Section -->
+    <section class="news-body">
+        <div class="news-trending-section">
+            <h2 class="news-section-title">Trending News</h2>
+            <div class="news-trending-container">
+                
+                <div class="news-trending-slider">
+                    <!-- Cards will be inserted here by JavaScript -->
+                </div>
+                <div class="news-slider-dots">
+                    <!-- Dots will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+        <script src="trends.js"></script>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
