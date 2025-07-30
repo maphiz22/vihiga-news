@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Homepage</title>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styl.css">
+</head>
+
+<body>
+    <section>
+        <!-- Header Section -->
+        <header id="mainHeader">
+            <a href="#" class="logo" aria-label="News Homepage">NewsHub</a>
+            <div class="weather-icon" aria-label="Current weather: Sunny">☀️</div>
+            <nav class="nav-menu" role="navigation" aria-label="Main Navigation">
+                <a href="#" tabindex="0">Home</a>
+                <a href="#" tabindex="0">Politics</a>
+                <a href="#" tabindex="0">Business</a>
+                <a href="#" tabindex="0">Technology</a>
+                <a href="#" tabindex="0">Sports</a>
+            </nav>
+            <button class="hamburger" aria-label="Open menu" aria-expanded="false">☰</button>
+        </header>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" role="navigation" aria-label="Mobile Navigation">
+            <button class="close-btn" aria-label="Close menu">×</button>
+            <a href="#" tabindex="0">Home</a>
+            <a href="#" tabindex="0">Politics</a>
+            <a href="#" tabindex="0">Business</a>
+            <a href="#" tabindex="0">Technology</a>
+            <a href="#" tabindex="0">Sports</a>
+        </div>
+        <div class="overlay"></div>
+
+        <!-- Live Viewer Counter -->
+        <div class="live-counter" title="Live visitors on the site right now">
+            <span class="live-dot"></span>
+            <span class="viewer-count" id="viewerCount">--</span>
+            <span class="live-text">viewers reading now</span>
+        </div>
+
+        <!-- Slider Section -->
+        <div class="slider-container">
+            <!-- Slide 1 -->
+            <div class="slide active" style="background-image: url('slides/bg-1.webp')" loading="lazy">
+                <div class="slide-content">
+                    <span class="category-badge breaking" aria-label="Breaking News">🔴 Breaking</span>
+                    <h2 class="slide-title">Global Summit Addresses Climate Change Crisis</h2>
+                    <p class="slide-description">World leaders gather to discuss urgent measures against rising global
+                        temperatures. New policies expected to be announced by end of week.</p>
+                    <button class="read-more-btn" tabindex="0" aria-label="Read more about Global Summit">Read
+                        More</button>
+                    <div class="progress-container">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                    <div class="slider-nav">
+                        <button class="nav-btn prev-btn" aria-label="Previous slide">❮</button>
+                        <button class="nav-btn next-btn" aria-label="Next slide">❯</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide" style="background-image: url('slides/ns-2.webp')" loading="lazy">
+                <div class="slide-content">
+                    <span class="category-badge sports" aria-label="Sports News">🔵 Sports</span>
+                    <h2 class="slide-title">National Team Advances to Finals After Dramatic Win</h2>
+                    <p class="slide-description">In a stunning overtime victory, the national team secures spot in
+                        championship finals for the first time in 12 years.</p>
+                    <button class="read-more-btn" tabindex="0" aria-label="Read more about National Team">Read
+                        More</button>
+                    <div class="progress-container">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                    <div class="slider-nav">
+                        <button class="nav-btn prev-btn" aria-label="Previous slide">❮</button>
+                        <button class="nav-btn next-btn" aria-label="Next slide">❯</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide" style="background-image: url('slides/ns3.webp')" loading="lazy">
+                <div class="slide-content">
+                    <span class="category-badge youth" aria-label="Youth News">🟡 Youth</span>
+                    <h2 class="slide-title">Young Innovators Develop App to Combat Food Waste</h2>
+                    <p class="slide-description">Teenage coders create platform connecting restaurants with shelters to
+                        redistribute excess food, already serving 10,000 meals.</p>
+                    <button class="read-more-btn" tabindex="0" aria-label="Read more about Youth Innovators">Read
+                        More</button>
+                    <div class="progress-container">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                    <div class="slider-nav">
+                        <button class="nav-btn prev-btn" aria-label="Previous slide">❮</button>
+                        <button class="nav-btn next-btn" aria-label="Next slide">❯</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="slide" style="background-image: url('slides/ns4.webp')" loading="lazy">
+                <div class="slide-content">
+                    <span class="category-badge trending" aria-label="Trending News">🟢 Trending</span>
+                    <h2 class="slide-title">New Study Reveals Benefits of Remote Work Productivity</h2>
+                    <p class="slide-description">Research shows 22% increase in output for remote employees, challenging
+                        traditional office models across industries.</p>
+                    <button class="read-more-btn" tabindex="0" aria-label="Read more about Remote Work Study">Read
+                        More</button>
+                    <div class="progress-container">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                    <div class="slider-nav">
+                        <button class="nav-btn prev-btn" aria-label="Previous slide">❮</button>
+                        <button class="nav-btn next-btn" aria-label="Next slide">❯</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-header" style="background-image: url('slides/ns5.webp')">
+                <button class="close-modal" aria-label="Close modal">×</button>
+            </div>
+            <div class="modal-content">
+                <span class="category-badge breaking" aria-hidden="true">🔴 Breaking</span>
+                <h2 id="modalTitle" class="modal-title">Global Summit Addresses Climate Change Crisis</h2>
+                <div class="modal-meta">
+                    <span>Posted: <time datetime="2023-06-15">June 15, 2023</time></span>
+                    <span>Views: 24,521</span>
+                </div>
+                <p class="modal-description">
+                    World leaders from over 190 countries gathered today at the annual Global Climate Summit to address
+                    the
+                    escalating climate crisis. The summit, held in Geneva, Switzerland, comes amid record-breaking
+                    temperatures and extreme weather events across the globe.
+                    <br><br>
+                    Key discussions focused on implementing stricter emissions targets, with several nations pledging to
+                    achieve net-zero carbon emissions by 2040 - a full decade earlier than previously agreed. The
+                    proposed
+                    policies include substantial investments in renewable energy infrastructure and stricter regulations
+                    on
+                    industrial pollution.
+                    <br><br>
+                    "We are at a critical juncture in human history," stated UN Secretary-General during the opening
+                    ceremony. "The decisions we make in these coming days will determine the livability of our planet
+                    for
+                    generations to come."
+                    <br><br>
+                    Environmental activists gathered outside the summit venue, urging faster action. Meanwhile, business
+                    leaders expressed concerns about the economic impact of rapid transition, calling for more gradual
+                    implementation timelines.
+                    <br><br>
+                    The summit is expected to conclude Friday with a joint declaration and action plan. Early drafts
+                    suggest
+                    the creation of an international climate monitoring body with enforcement powers, though details
+                    remain
+                    contentious among participating nations.
+                </p>
+                <div class="reporter-info">
+                    <img src="slides/user1.webp" alt="Reporter portrait" class="reporter-img" loading="lazy">
+                    <div>
+                        <div class="reporter-name">Sarah Johnson</div>
+                        <div class="tag">Senior Correspondent</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="slides.js"></script>
+    </section>
+
+
+
+    <!--TRENDING NEWS SECTION--->
+    <section class="news-section">
+        <h2 class="news-heading">TRENDING NOW IN VIHIGA</h2>
+
+        <div class="news-trending-slider" id="newsSlider">
+            <div class="news-cards-wrapper">
+                <!-- Card 1 -->
+                <div class="news-card" data-id="1">
+                    <div class="news-card-image">
+                        <img src="https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?q=80&w=1974"
+                            alt="Flood damage">
+                        <div class="news-live-count" id="liveCount1">📶 <span>1,247</span> reading now</div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">Severe Floods Damage Local School</h3>
+                        <p class="news-card-summary">Heavy rains cause flooding in Vihiga, damaging classrooms at Mbale
+                            High School. Students sent home as repairs begin.</p>
+                        <div class="news-card-footer">
+                            <button class="news-read-more">Read More</button>
+                            <div class="news-views-count">👁️ 4.2k views</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="news-card" data-id="2">
+                    <div class="news-card-image">
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1930"
+                            alt="Market scene">
+                        <div class="news-live-count" id="liveCount2">📶 <span>893</span> reading now</div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">New Market Opens in Mbale</h3>
+                        <p class="news-card-summary">Governor launches modern market with 200 stalls to boost local
+                            trade and provide hygienic space for vendors.</p>
+                        <div class="news-card-footer">
+                            <button class="news-read-more">Read More</button>
+                            <div class="news-views-count">👁️ 2.8k views</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="news-card" data-id="3">
+                    <div class="news-card-image">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070"
+                            alt="Football match">
+                        <div class="news-live-count" id="liveCount3">📶 <span>2,150</span> reading now</div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">Vihiga Queens Win Championship</h3>
+                        <p class="news-card-summary">Local women's football team secures national title with 3-1
+                            victory. Celebrations planned across the county.</p>
+                        <div class="news-card-footer">
+                            <button class="news-read-more">Read More</button>
+                            <div class="news-views-count">👁️ 5.7k views</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="news-card" data-id="4">
+                    <div class="news-card-image">
+                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=2070"
+                            alt="Healthcare workers">
+                        <div class="news-live-count" id="liveCount4">📶 <span>1,025</span> reading now</div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">New Health Center Construction</h3>
+                        <p class="news-card-summary">Construction begins on a new health center in Luanda to serve over
+                            10,000 residents with modern facilities.</p>
+                        <div class="news-card-footer">
+                            <button class="news-read-more">Read More</button>
+                            <div class="news-views-count">👁️ 3.1k views</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="news-card" data-id="5">
+                    <div class="news-card-image">
+                        <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=2070"
+                            alt="Coffee farmer">
+                        <div class="news-live-count" id="liveCount5">📶 <span>756</span> reading now</div>
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">Coffee Farmers Get Price Boost</h3>
+                        <p class="news-card-summary">New cooperative agreement increases coffee prices by 30% for Vihiga
+                            farmers, boosting local economy.</p>
+                        <div class="news-card-footer">
+                            <button class="news-read-more">Read More</button>
+                            <div class="news-views-count">👁️ 1.9k views</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-controls">
+                <button class="news-prev">❮</button>
+                <button class="news-next">❯</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Modal -->
+    <div class="news-modal" id="newsModal">
+        <div class="news-modal-content">
+            <button class="news-modal-close" id="modalClose">×</button>
+            <div class="news-modal-image">
+                <img id="modalImage" src="" alt="News image">
+            </div>
+            <div class="news-modal-details">
+                <h2 class="news-modal-title" id="modalTitle"></h2>
+                <div class="news-modal-body" id="modalBody"></div>
+
+                <div class="news-modal-meta">
+                    <div class="news-modal-reporter">
+                        <div class="news-modal-avatar" id="modalAvatar">JW</div>
+                        <div class="news-modal-reporter-info">
+                            <span class="news-modal-reporter-name" id="modalReporter">John Were</span>
+                            <span class="news-modal-date" id="modalDate">Jul 26, 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-modal-reactions">
+                    <button class="news-reaction-btn" id="likeBtn">
+                        <span>👍</span>
+                        <span id="likeCount">24</span>
+                    </button>
+                    <button class="news-reaction-btn" id="dislikeBtn">
+                        <span>👎</span>
+                        <span id="dislikeCount">3</span>
+                    </button>
+                </div>
+
+                <button class="news-modal-share" id="shareBtn">
+                    <span>📤</span>
+                    <span>Share This Story</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="trend.js"></script>
+    <script src="livesystem.js"></script>
+
+
+
+
+</body>
+
+</html>
